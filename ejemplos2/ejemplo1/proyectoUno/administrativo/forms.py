@@ -10,7 +10,7 @@ class EstudianteForm(ModelForm):
         model = Estudiante
         fields = ['nombre', 'apellido', 'cedula', 'correo']
         labels = {
-            'nombre': _('Ingrese nombre por favor:'),
+            'nombre': _('Ingrese nombres completos por favor:'),
             'apellido': _('Ingrese apellido por favor'),
             'cedula': _('Ingrese cédula por favor'),
             'correo': _('Ingrese correo por favor'),
