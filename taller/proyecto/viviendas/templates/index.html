@@ -28,18 +28,24 @@
       <ul>
         {% for d in e.departamentos.all %}
           <li>
-            <span>{{d}} - [<a href="{% url 'editar_numero_telefonico' d.id %}">editar</a>] </span>
+            <span>{{d}} - 
+              [<a href="{% url 'editar_departamento' d.id %}">editar</a>]
+              [<a href="{% url 'eliminar_departamento' e.id %}"
+              onclick="return confirm('¿Está seguro de la eliminación?')" >
+              eliminar</a>]
+            </span>
           </li>
         {% endfor %}
       </ul>
-        <span><b>Total:</b> {{ e.obtener_costo_telefonos }}</span>
+        <span><b>Total del costo de departamentos:</b> {{ e.obtener_costo_departamentos_edificio }}</span>
         <br>
-        <span><b>Total de números:</b> {{ e.obtener_cantidad_telefonos }}</span>
-        <br>[<a href="{% url 'crear_numero_telefonico_estudiante' e.id%}">+Teléfono</a>]
+        <span><b>Total de cuartos del edificio:</b> {{ e.obtener_cantidad_cuartos }}</span>
+        <br>[<a href="{% url 'crear_departamento_edificio' e.id%}">+departamento</a>]
     </td>
-    <td> <a href="{% url 'obtener_estudiante' e.id %}">ver</a> <br>
-      <a href="{% url 'editar_estudiante' e.id %}">editar</a> <br>
-      <a href="{% url 'eliminar_estudiante' e.id %}"
+    
+    <td> <a href="{% url 'obtener_edificio' e.id %}">ver</a> <br>
+      <a href="{% url 'editar_edificio' e.id %}">editar</a> <br>
+      <a href="{% url 'eliminar_edificio' e.id %}"
       onclick="return confirm('¿Está seguro de la eliminación?')" >
       eliminar</a>
     </td>

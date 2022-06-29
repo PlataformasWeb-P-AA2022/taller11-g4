@@ -11,7 +11,7 @@ class EdificioForm(ModelForm):
         labels = {
             'nombre': _('Ingrese nombre por favor'),
             'direccion': _('Ingrese direccion por favor'),
-            'ciudad': _('Ingrese cédula por favor'),
+            'ciudad': _('Ingrese ciudad por favor'),
             'tipo': _('Ingrese tipo por favor'),
         }
 
@@ -28,36 +28,37 @@ class EdificioForm(ModelForm):
 class DepartamentoForm(ModelForm):
     class Meta:
         model = Departamento
-        fields = ['nombre_propietario', 'costo_departamento', 'num_cuartos']
+        fields = ['nombre_propietario', 'costo_departamento', 'num_cuartos', 'edificio']
 
     def clean_costo_departamento(self):
         valor = self.cleaned_data['costo_departamento']
-        if len(valor) > 1000:
+        if valor > 100000:
             raise forms.ValidationError("EL costo del departamento no puede ser mayor a $100 000")
         return valor
     
-    def clean_num_departamentos(self):
-        valor = self.cleaned_data['num_departamentos']
-        if len(valor) != 0 and len(valor) > 7:
+    def clean_num_cuartos(self):
+        valor = self.cleaned_data['num_cuartos']
+        print(valor)
+        if (valor == 0) or (valor > 7):
             raise forms.ValidationError("El numero de cuartos no puede ser 0 ni mayor a 7")
         return valor
 
-    def clean_num_departamentos(self):
+    def clean_nombre_propietario(self):
         valor = self.cleaned_data['nombre_propietario']
         nombre = len(valor.split())
         if nombre < 3:
             raise forms.ValidationError("El nombre completo del propietario no puede tener ser menor a 3 palabras")
         return valor
 
-s
-class NumeroTelefonicoEstudianteForm(ModelForm):
 
-    def __init__(self, estudiante, *args, **kwargs):
-        super(NumeroTelefonicoEstudianteForm, self).__init__(*args, **kwargs)
-        self.initial['estudiante'] = estudiante
-        self.fields["estudiante"].widget = forms.widgets.HiddenInput()
-        print(estudiante)
+class DepartamentoEdificioForm(ModelForm):
+
+    def __init__(self, edificio, *args, **kwargs):
+        super(DepartamentoEdificioForm, self).__init__(*args, **kwargs)
+        self.initial['edificio'] = edificio
+        self.fields["edificio"].widget = forms.widgets.HiddenInput()
+        print(edificio)
 
     class Meta:
-        model = NumeroTelefonico
-        fields = ['telefono', 'tipo', 'estudiante', 'costo_plan']
+        model = Departamento
+        fields = ['nombre_propietario', 'costo_departamento', 'num_cuartos']

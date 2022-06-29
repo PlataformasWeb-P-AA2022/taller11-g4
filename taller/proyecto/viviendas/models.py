@@ -4,8 +4,8 @@ from django.db import models
 
 class Edificio(models.Model):
     opciones_tipos = (
-        ('residencial'),
-        ('comercial'),
+        ('residencial','Residencial'),
+        ('comercial','Comercial'),
         )
 
     nombre = models.CharField(max_length=30)
@@ -19,28 +19,24 @@ class Edificio(models.Model):
                 self.ciudad,
                 self.tipo)
 
-    def obtener_costo_telefonos(self):
-        # valor = [t.costo_plan for t in self.numeros_telefonicos.all()]
-        # valor = sum(valor)  # [10.2, 20]
-        valor = 0;
-        for t in self.numeros_telefonicos.all(): # self.num_telefonicos -> me devuelve un listado de obj de tipo NumeroTelefonico
-            valor = valor + t.costo_plan
+    def obtener_costo_departametos_edificio(self):
+        valor = [t.costo_departamento for t in self.departamentos.all()]
+        valor = sum(valor)
         return valor
 
-    def obtener_cantidad_telefonos(self):
-        """
-        """
-        valor = len(self.numeros_telefonicos.all())
+    def obtener_cantidad_cuartos(self):
+        valor = [t.num_cuartos for t in self.departamentos.all()]
+        valor = sum(valor)
         return valor
 
 
 class Departamento(models.Model):
     nombre_propietario = models.CharField(max_length=100)
-    costo_departamento = models.CharField(max_length=100)
+    costo_departamento = models.IntegerField('costo departamento')
     num_cuartos = models.IntegerField('numero de cuartos')
     edificio = models.ForeignKey(Edificio, on_delete=models.CASCADE,
             related_name="departamentos")
 
     def __str__(self):
-        return "%s %s %d" % (self.nombre_propietario, 
-        self.costo_departamento, self.num_cuartos)
+        return "%s %s %d" % (self.nombre_propietario,
+         self.costo_departamento,self.num_cuartos)
