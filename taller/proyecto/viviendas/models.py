@@ -10,7 +10,7 @@ class Edificio(models.Model):
 
     nombre = models.CharField(max_length=30)
     direccion = models.CharField(max_length=30)
-    ciudad = models.CharField(max_length=30, unique=True)
+    ciudad = models.CharField(max_length=30)
     tipo = models.CharField(max_length=30, choices=opciones_tipos)
 
     def __str__(self):
@@ -20,12 +20,12 @@ class Edificio(models.Model):
                 self.tipo)
 
     def obtener_costo_departametos_edificio(self):
-        valor = [t.costo_departamento for t in self.departamentos.all()]
+        valor = [d.costo_departamento for d in self.departamentos.all()]
         valor = sum(valor)
         return valor
 
     def obtener_cantidad_cuartos(self):
-        valor = [t.num_cuartos for t in self.departamentos.all()]
+        valor = [d.num_cuartos for d in self.departamentos.all()]
         valor = sum(valor)
         return valor
 

@@ -24,7 +24,7 @@ def obtener_edificio(request, id):
     edificio = Edificio.objects.get(pk=id)
 
     informacion_template = {'edificio': edificio}
-    return render(request, 'obtener_edificio.html', informacion_template)
+    return render(request, 'obtenerEdificio.html', informacion_template)
 
 
 def crear_edificio(request):
@@ -61,8 +61,6 @@ def editar_edificio(request, id):
 
 
 def eliminar_edificio(request, id):
-    """
-    """
     edificio = Edificio.objects.get(pk=id)
     edificio.delete()
     return redirect(index)
@@ -84,8 +82,6 @@ def crear_departamento(request):
 
 
 def editar_departamento(request, id):
-    """
-    """
     departamento = Departamento.objects.get(pk=id)
     if request.method=='POST':
         formulario = DepartamentoForm(request.POST, instance=departamento)
@@ -101,9 +97,7 @@ def editar_departamento(request, id):
 
 
 def eliminar_departamento(request, id):
-    """
-    """
-    departamento = departamento.objects.get(pk=id)
+    departamento = Departamento.objects.get(pk=id)
     departamento.delete()
     return redirect(index)
 
